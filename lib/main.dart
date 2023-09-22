@@ -101,6 +101,12 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'Ricardo Israel Vazquez Dominguez',
             ),
+            const Text(
+              'Rodrigo Tellez Escobedo',
+            ),
+            const Text(
+              'Diego Herrera Varela',
+            ),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
