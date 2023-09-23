@@ -103,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
               'Ricardo Israel Vazquez Dominguez 👌',
             ),
             const Text(
-              'Rodrigo Tellez Escobedo',
+              'Rodrigo Tellez Escobedo 👌',
             ),
             const Text(
               'Diego Herrera Varela',
