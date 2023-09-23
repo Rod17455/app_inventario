@@ -95,14 +95,12 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'DS01SV-22'
-            ),
+            const Text('DS01SV-22'),
             const Text(
               'JEMO (JAIRO EMMANUEL MARTINEZ OLVERA 👌)',
             ),
             const Text(
-              'Ricardo Israel Vazquez Dominguez',
+              'Ricardo Israel Vazquez Dominguez 👌',
             ),
             const Text(
               'Rodrigo Tellez Escobedo',
