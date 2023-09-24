@@ -52,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("App Inventario",
+          const Text("App Inventario's",
            style: TextStyle(
            color: Colors.black ,
            fontSize: 28.0,
