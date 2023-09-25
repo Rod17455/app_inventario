@@ -16,7 +16,7 @@ class WelcomeScreen extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             Text(
-              "Bienvenido a la ",
+              "Welcome to the ",
               style: TextStyle(
                 fontSize: 28.0,
                 fontWeight: FontWeight.bold,
