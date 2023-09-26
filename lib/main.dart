@@ -1,3 +1,4 @@
+import 'package:app_inventario/forget.dart';
 import 'package:flutter/material.dart';
 import 'welcome_screen.dart';
 
@@ -18,8 +19,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -34,13 +33,11 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-
-
 class LoginScreen extends StatefulWidget {
-  const LoginScreen ({super.key});
+  const LoginScreen({super.key});
 
   @override
-  State<LoginScreen > createState() => _LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -52,70 +49,84 @@ class _LoginScreenState extends State<LoginScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("App Inventario's",
-           style: TextStyle(
-           color: Colors.black ,
-           fontSize: 28.0,
-           fontWeight: FontWeight.bold,
-           ),
+          const Text(
+            "App Inventario's",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 28.0,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-
-          const Text("Inicio de Sesión",
-           style: TextStyle(color: Colors.black ,
-           fontSize: 44.0,
-           fontWeight: FontWeight.bold,
+          const Text(
+            "Inicio de Sesión",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 44.0,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        const SizedBox(height: 44.0,
-        ),
-        const TextField(
-          keyboardType: TextInputType.emailAddress,
-          decoration:  InputDecoration(
-            hintText: "Usuario",
-            prefixIcon: Icon(Icons.person, color: Colors.black),
+          const SizedBox(
+            height: 44.0,
           ),
-        ),
-        const SizedBox(
-          height: 26.0,
-        ),
-        const TextField(
-          obscureText: true,
-          decoration: InputDecoration(
-            hintText: "Password",
-            prefixIcon: Icon(Icons.lock, color: Colors.black),
+          const TextField(
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              hintText: "Usuario",
+              prefixIcon: Icon(Icons.person, color: Colors.black),
+            ),
           ),
-        ),
-        const SizedBox(
-          height: 12.0,
-        ),
-        const Text(
-          "Se te olvidó la contraseña?",
-           style: TextStyle(color: Colors.green),
-        ),
-        const SizedBox(
-          height: 88.0,
-        ),
-        Container(
-          width: double.infinity,
-          child: RawMaterialButton(
-            fillColor: Color.fromARGB(255, 244, 110, 0),
-            elevation: 0.0,
-            padding: EdgeInsets.symmetric(vertical: 20.0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0)),
-            onPressed: (){
-                Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => WelcomeScreen()),
-              );
+          const SizedBox(
+            height: 26.0,
+          ),
+          const TextField(
+            obscureText: true,
+            decoration: InputDecoration(
+              hintText: "Password",
+              prefixIcon: Icon(Icons.lock, color: Colors.black),
+            ),
+          ),
+          const SizedBox(
+            height: 12.0,
+          ),
+          TextButton(
+            onPressed: () {
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) =>  ForgetPassword ()),
+                );
             },
-            child: Text("Login",
-             style: TextStyle(color:Colors.white,
-            fontSize: 18.0,
-             ),
+            child: const Text(
+              "Se te olvidó la contraseña?",
+              style: TextStyle(color: Colors.green),
             ),
+          ),
+          const SizedBox(
+            height: 88.0,
+          ),
+          Container(
+            width: double.infinity,
+            child: RawMaterialButton(
+              fillColor: Color.fromARGB(255, 244, 110, 0),
+              elevation: 0.0,
+              padding: EdgeInsets.symmetric(vertical: 20.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                );
+              },
+              child: Text(
+                "Login",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                ),
+              ),
             ),
-        ),
+          ),
         ],
       ),
     );
