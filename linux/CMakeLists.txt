@@ -36,8 +36,8 @@ endif()
 
 # Compilation settings that should be applied to most targets.
 #
-# Be cautious about adding new options here, as plugins use this function by
-# default. In most cases, you should add new options to specific targets instead
+# Be cautious about adding new options here as plugins use this function by
+# default. In most cases you should add new options to specific targets instead
 # of modifying this function.
 function(APPLY_STANDARD_SETTINGS TARGET)
   target_compile_features(${TARGET} PUBLIC cxx_std_14)
@@ -56,8 +56,8 @@ pkg_check_modules(GTK REQUIRED IMPORTED_TARGET gtk+-3.0)
 
 add_definitions(-DAPPLICATION_ID="${APPLICATION_ID}")
 
-# Define the application target. To change its name, change BINARY_NAME above,
-# not the value here, or `flutter run` will no longer work.
+# Define the application target. To change its name change BINARY_NAME above
+# not the value here or `flutter run` will no longer work.
 #
 # Any new source files that you add to the application should be added here.
 add_executable(${BINARY_NAME}
@@ -78,21 +78,21 @@ target_link_libraries(${BINARY_NAME} PRIVATE PkgConfig::GTK)
 add_dependencies(${BINARY_NAME} flutter_assemble)
 
 # Only the install-generated bundle's copy of the executable will launch
-# correctly, since the resources must in the right relative locations. To avoid
-# people trying to run the unbundled copy, put it in a subdirectory instead of
+# correctly since the resources must in the right relative locations. To avoid
+# people trying to run the unbundled copy put it in a subdirectory instead of
 # the default top-level location.
 set_target_properties(${BINARY_NAME}
   PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/intermediates_do_not_run"
 )
 
-# Generated plugin build rules, which manage building the plugins and adding
+# Generated plugin build rules which manage building the plugins and adding
 # them to the application.
 include(flutter/generated_plugins.cmake)
 
 
 # === Installation ===
-# By default, "installing" just makes a relocatable bundle in the build
+# By default "installing" just makes a relocatable bundle in the build
 # directory.
 set(BUILD_BUNDLE_DIR "${PROJECT_BINARY_DIR}/bundle")
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
