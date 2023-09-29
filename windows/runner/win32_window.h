@@ -15,14 +15,14 @@ class Win32Window {
   struct Point {
     unsigned int x;
     unsigned int y;
-    Point(unsigned int x, unsigned int y) : x(x), y(y) {}
+    Point(unsigned int x unsigned int y) : x(x) y(y) {}
   };
 
   struct Size {
     unsigned int width;
     unsigned int height;
-    Size(unsigned int width, unsigned int height)
-        : width(width), height(height) {}
+    Size(unsigned int width unsigned int height)
+        : width(width) height(height) {}
   };
 
   Win32Window();
@@ -30,11 +30,11 @@ class Win32Window {
 
   // Creates a win32 window with |title| that is positioned and sized using
   // |origin| and |size|. New windows are created on the default monitor. Window
-  // sizes are specified to the OS in physical pixels, hence to ensure a
+  // sizes are specified to the OS in physical pixels hence to ensure a
   // consistent size this function will scale the inputted width and height as
   // as appropriate for the default monitor. The window is invisible until
   // |Show| is called. Returns true if the window was created successfully.
-  bool Create(const std::wstring& title, const Point& origin, const Size& size);
+  bool Create(const std::wstring& title const Point& origin const Size& size);
 
   // Show the current window. Returns true if the window was successfully shown.
   bool Show();
@@ -49,22 +49,22 @@ class Win32Window {
   // window properties. Returns nullptr if the window has been destroyed.
   HWND GetHandle();
 
-  // If true, closing this window will quit the application.
+  // If true closing this window will quit the application.
   void SetQuitOnClose(bool quit_on_close);
 
   // Return a RECT representing the bounds of the current client area.
   RECT GetClientArea();
 
  protected:
-  // Processes and route salient window messages for mouse handling,
+  // Processes and route salient window messages for mouse handling
   // size change and DPI. Delegates handling of these to member overloads that
   // inheriting classes can handle.
-  virtual LRESULT MessageHandler(HWND window,
-                                 UINT const message,
-                                 WPARAM const wparam,
+  virtual LRESULT MessageHandler(HWND window
+                                 UINT const message
+                                 WPARAM const wparam
                                  LPARAM const lparam) noexcept;
 
-  // Called when CreateAndShow is called, allowing subclass window-related
+  // Called when CreateAndShow is called allowing subclass window-related
   // setup. Subclasses should return false if setup fails.
   virtual bool OnCreate();
 
@@ -79,9 +79,9 @@ class Win32Window {
   // non-client DPI scaling so that the non-client area automatically
   // responsponds to changes in DPI. All other messages are handled by
   // MessageHandler.
-  static LRESULT CALLBACK WndProc(HWND const window,
-                                  UINT const message,
-                                  WPARAM const wparam,
+  static LRESULT CALLBACK WndProc(HWND const window
+                                  UINT const message
+                                  WPARAM const wparam
                                   LPARAM const lparam) noexcept;
 
   // Retrieves a class instance pointer for |window|
