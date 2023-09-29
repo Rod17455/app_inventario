@@ -2,7 +2,7 @@
 <html>
 <head>
   <!--
-    If you are serving your web app in a path other than the root, change the
+    If you are serving your web app in a path other than the root change the
     href value below to reflect the base path you are serving from.
 
     The path provided below has to start and end with a slash "/" in order for
@@ -33,7 +33,7 @@
   <link rel="manifest" href="manifest.json">
 
   <script>
-    // The value below is injected by flutter build, do not touch.
+    // The value below is injected by flutter build do not touch.
     var serviceWorkerVersion = null;
   </script>
   <!-- This script adds the flutter initialization JS code -->
@@ -41,12 +41,12 @@
 </head>
 <body>
   <script>
-    window.addEventListener('load', function(ev) {
+    window.addEventListener('load' function(ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        },
+          serviceWorkerVersion: serviceWorkerVersion
+        }
         onEntrypointLoaded: function(engineInitializer) {
           engineInitializer.initializeEngine().then(function(appRunner) {
             appRunner.runApp();
