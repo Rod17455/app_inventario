@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/link.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RegisterPage extends StatefulWidget {
   RegisterController con = Get.put(RegisterController());
@@ -15,6 +16,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   bool isChecked1 = false;
   bool isChecked2 = false;
+  final Uri _url = Uri.parse('https://drive.google.com/file/d/1H5Vrm8MeUh_Hl9DRw0VjBJKgTJdQtQ9o/view?usp=drive_link');
 
   void printMessage(){
     print("Accepted the agreement");
@@ -86,10 +88,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   height: 60,
                   onPressed: () {
                     setState(() {
-                      if(isChecked1 && isChecked2){
+                      if(isChecked1){
                         widget.con.register();
                       } else {
-                        Get.snackbar("Revise los documentos de seguridad", 'Lea y luego selecciona las casillas');
+                        Get.snackbar("Revise la política de privacidad", 'Lea y luego selecciona la casilla');
                       }
                     });
                   },
@@ -120,73 +122,17 @@ class _RegisterPageState extends State<RegisterPage> {
                       });
                     },
                   ),
-                  Link(
-                    uri: Uri.parse('https://androidride.com'),
-                    builder: (context, followLink) {
-                      return RichText(
-                        text: TextSpan(children: [
-                          TextSpan(
-                            text: 'He leido el doc ',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 10
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'protección de datos personales',
-                            style: TextStyle(
-                              color: Colors.blue,
-                              decoration: TextDecoration.underline,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = followLink,
-                          ),
-                        ]),
-                      );
-                    },
+                  TextButton(
+                    onPressed: (){
+                      _launchUrl();
+                    }, 
+                    child:const Text("He leído y aceptado la política de privacidad",
+                      style: TextStyle(
+                         fontSize: 10,
+                      ),
+                    )
                   )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Checkbox(
-                    value: isChecked2,
-                    onChanged: (bool? newValue){
-                      setState(() {
-                        isChecked2 = newValue!;
-                      });
-                    },
-                  ),
-                  Link(
-                    uri: Uri.parse('https://androidride.com'),
-                    builder: (context, followLink) {
-                      return RichText(
-                        text: TextSpan(children: [
-                          TextSpan(
-                            text: 'He leido el doc de ',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 10
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'la política de privacidad.',
-                            style: TextStyle(
-                              color: Colors.blue,
-                              decoration: TextDecoration.underline,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = followLink,
-                          ),
-                        ]),
-                      );
-                    },
-                  )
+
                 ],
               )
             ],
@@ -199,6 +145,12 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
 
     );
+  }
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
   }
 
   Widget _textFieldEmail({label, obscureText = false}) {
