@@ -34,7 +34,7 @@ class RegisterController extends GetxController{
 
       print('RESPONSE: ${response.body}');
 
-      Get.snackbar("Formulario Valido", 'Estas listo para ingresar');
+      Get.snackbar("Formulario Valido", 'Usuario Registrado');
     }
 
     
