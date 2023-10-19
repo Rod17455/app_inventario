@@ -77,7 +77,7 @@ class LoginPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12.0),
               ),
               onPressed: () => con.login(),
-              child: Text(
+              child: const Text(
                 "Login",
                 style: TextStyle(
                   color: Colors.white,
