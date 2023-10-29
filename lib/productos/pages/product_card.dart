@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'product_card.dart';
 
-void main() {
-  runApp(ProductCardWidget());
-}
 
 class ProductCardWidget extends StatelessWidget {
   @override
@@ -18,38 +15,38 @@ class ProductCardWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-    width: 360,
-    height: 596,
-    clipBehavior: Clip.antiAlias,
-    decoration: BoxDecoration(color: Colors.white),
-    child: Stack(
-        children: [
-            Positioned(
-                left: 16,
-                top: 40,
-                child: Container(
-                    width: 24,
-                    height: 24,
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(),
-                    child: Stack(children: [
-                    ]),
-                ),
-            ),
-            Positioned(
-                left: 282,
-                top: 40,
-                child: Text(
-                    '15:59',
-                    style: TextStyle(
-                        color: Color(0xFFFF5D57),
-                        fontSize: 24,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w700,
-                        height: 0.05,
-                    ),
-                ),
-            ),
+                  width: 360,
+                  height: 596,
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(color: Colors.white),
+                  child: Stack(
+                      children: [
+                          Positioned(
+                              left: 16,
+                              top: 40,
+                              child: Container(
+                                  width: 24,
+                                  height: 24,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(),
+                                  child: Stack(children: [
+                                  ]),
+                              ),
+                          ),
+                            Positioned(
+                                left: 282,
+                                top: 40,
+                                child: Text(
+                                    '15:59',
+                                    style: TextStyle(
+                                        color: Color(0xFFFF5D57),
+                                        fontSize: 24,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w700,
+                                        height: 0.05,
+                                    ),
+                                ),
+                            ),
             Positioned(
                 left: 16,
                 top: 112,

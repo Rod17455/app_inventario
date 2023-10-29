@@ -10,27 +10,31 @@ class UsersProviders extends GetConnect{
 
   Future<Response> create(User user) async{
     Response response = await post(
-      '$url/register',
+      'http://localhost:5000/api/usuario/register',
       user.toJson(),
       headers: {
-        'Content-Type': 'application/json'
-      }
+          'Content-Type': 'application/json'
+        }
     );
+    print("ESTATUS: ${response.statusCode}");
+     if(response.body == null){
+      Get.snackbar('Error', 'No se pudo ejecutar la petición');
+    }
     return response;
   }
 
   Future<ResponseApi> login(String username, String password) async{
     Response response = await post(
-      '$url/token',
+      'http://localhost:5000/api/usuario/token',
       {
         "username":username,
         "password":password
       },
       headers: {
-        'Content-Type': 'application/json'
-      }
+          'Content-Type': 'application/json'
+        }
     );
-
+    print("ESTATUS: ${response.statusCode}");
     if(response.body == null){
       Get.snackbar('Error', 'No se pudo ejecutar la petición');
       return ResponseApi();

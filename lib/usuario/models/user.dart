@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final user = userFromJson(jsonString);
+
 import 'dart:convert';
 
 User userFromJson(String str) => User.fromJson(json.decode(str));
@@ -5,56 +9,37 @@ User userFromJson(String str) => User.fromJson(json.decode(str));
 String userToJson(User data) => json.encode(data.toJson());
 
 class User {
-
     String? nomUser;
     String? apellido;
     String? correoElectronico;
     String? password;
-    String? mensaje;
-    String? estaAutenticado;
-    String? email;
-    List<dynamic>? roles;
-    String? token;
-    String? refreshTokenExpiration;
+    String? sesionToken;
+    List<String>? roles = [];
 
     User({
         this.nomUser,
         this.apellido,
         this.correoElectronico,
         this.password,
-        this.email,
-        this.estaAutenticado,
-        this.mensaje,
-        this.token,
-        this.refreshTokenExpiration,
+        this.sesionToken,
         this.roles
-
     });
 
     factory User.fromJson(Map<String, dynamic> json) => User(
-        nomUser: json["nomUser"],
+        nomUser: json["userName"],
         apellido: json["apellido"],
-        correoElectronico: json["correoElectronico"],
+        correoElectronico: json["email"],
         password: json["password"],
-        mensaje: json["mensaje"],
-        estaAutenticado: json["estaAutenticado"],
-        email: json["email"],
-        roles: List<dynamic>.from(json["roles"].map((x) => x)),
-        token: json["token"],
-        refreshTokenExpiration: json["refreshTokenExpiration"],
-
+        sesionToken: json["token"],
+        roles: json["roles"] == null ? [] : List<String>.from(json["roles"])
     );
 
     Map<String, dynamic> toJson() => {
-        "nomUser": nomUser,
+        "userName": nomUser,
         "apellido": apellido,
-        "correoElectronico": correoElectronico,
+        "email": correoElectronico,
         "password": password,
-        "mensaje": mensaje,
-        "estaAutenticado": estaAutenticado,
-        "email": email,
-        "roles": List<dynamic>.from(roles!.map((x) => x)),
-        "token": token,
-        "refreshTokenExpiration": refreshTokenExpiration,
+        "token": sesionToken,
+        "roles": roles
     };
 }
