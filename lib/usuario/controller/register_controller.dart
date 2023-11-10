@@ -1,6 +1,7 @@
 import 'package:app_inventario/usuario/providers/user_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sn_progress_dialog/progress_dialog.dart';
 
 import '../models/user.dart';
 
@@ -14,7 +15,7 @@ class RegisterController extends GetxController{
 
   UsersProviders usersProviders = UsersProviders();
 
-  void register() async{
+  void register(BuildContext context) async{
     String username = usernameController.text.trim();
     String name = nameController.text;
     String email = emailController.text.trim();
@@ -22,14 +23,16 @@ class RegisterController extends GetxController{
     String confirmPassword = confirmPasswordController.text.trim();
 
     if(isValidForm(username, password, name, email, confirmPassword)){
-      
+
+      ProgressDialog progressDialog = ProgressDialog(context: context);
+      progressDialog.show(max: 100, msg: 'Refistrando Datos....');
       User user = User(
         correoElectronico: email,
         apellido: name,
         nomUser: username,
         password: password
       );
-      
+      progressDialog.close();
       Response response = await usersProviders.create(user);
 
       print('RESPONSE: ${response.body}');
