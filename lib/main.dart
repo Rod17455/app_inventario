@@ -1,6 +1,7 @@
 import 'package:app_inventario/forget.dart';
 import 'package:app_inventario/productos/pages/detalle/producto_detalle_page.dart';
 import 'package:app_inventario/productos/pages/pendientes/productos_pendientes_page.dart';
+import 'package:app_inventario/productos/pages/product_card.dart';
 import 'package:app_inventario/productos/pages/productos_all_page.dart';
 import 'package:app_inventario/productos/pages/rechazadas/productos_rechazados_page.dart';
 import 'package:app_inventario/register.dart';
@@ -11,6 +12,9 @@ import 'package:app_inventario/usuario/pages/register/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'admin/pages/detalle_prov_page.dart';
+import 'admin/pages/formulario_insertar_prov.dart';
+import 'admin/pages/lista_prov_page.dart';
 import 'gerente/pages/productos_autorizados_page.dart';
 import 'gerente/pages/productos_x_autorizar_page.dart';
 import 'usuario/pages/home/welcome_screen.dart';
@@ -54,6 +58,9 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/productsDetail', page: () => ProductoDetallePage()),
         GetPage(name: '/gerente', page: () => ProductosXAutorizarPage()),
         GetPage(name: '/gerente/productsAutorizados', page: () => ProductosAutorizadosPage()),
+        GetPage(name: '/admin/provList', page: () => ListProvPage()),
+        GetPage(name: '/admin/provUpdate', page: () => UpdateProvPage()),
+        GetPage(name: '/admin/provInsertar', page: () => FormularioProvPage()),
         //ProductosXAutorizarPage
       ],
       navigatorKey: Get.key,

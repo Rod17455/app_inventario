@@ -1,15 +1,144 @@
+/*import 'package:app_inventario/productos/controller/productos_x_entregar.dart';
 import 'package:flutter/material.dart';
-import 'product_card.dart';
+import 'package:get/get.dart';
 
-class ProductCardWidget extends StatelessWidget {
-  const ProductCardWidget({super.key});
+import '../../../menu/menu_empleado.dart';
+import '../../models/products.dart';
+
+class ProductosXEntregar extends StatefulWidget {
+  ProductosXEntregarController con = Get.put(ProductosXEntregarController());
 
   @override
-    Widget build(BuildContext context) {
+  State<ProductosXEntregar> createState() => _ProductosXEntregarState();
+}
+
+class _ProductosXEntregarState extends State<ProductosXEntregar> {
+  @override
+  Widget build(BuildContext context) {
+    return  Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(110),
+        child: AppBar(
+           backgroundColor: Color.fromARGB(255, 223, 102, 10),
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    bottom: Radius.circular(30.0),
+                  ),
+            ),
+            flexibleSpace: Container(
+                  margin: const EdgeInsets.only(top: 15),
+                  alignment: Alignment.topCenter,
+                  child: Wrap(
+                    direction: Axis.horizontal,
+                    children: [
+                      _textFieldSearch(
+                        context,
+                        
+                    ),
+                ],
+              ),
+            )
+        ),
+      ),
+      drawer: MenuEmpleado(),
+      body: SingleChildScrollView(
+        child: FutureBuilder(
+          future: widget.con.getBandeja(3, 1),
+          builder: (context, AsyncSnapshot<List<Product>> snapshot){
+            if (snapshot.hasData) {
+              if (snapshot.data!.isNotEmpty) {
+                return Column(
+                        children: <Widget>[
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: snapshot.data?.length ?? 0,
+                            itemBuilder: (_, index){
+                              return _cardProductos(context, snapshot.data![index]);
+                      }
+                    ),
+                    
+                  ],
+                );
+              } else {
+                return _botonActualizar();
+              }
+            } else {
+              return Container();
+            }
+          }
+        ),
+      ),
+    );
+  }
+
+    Widget _botonActualizar(){
+      return Container(
+              padding: const EdgeInsets.fromLTRB(50, 120, 50, 50),
+               child: Column(
+               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                            //NoDataWidget(text: 'No hay órdenes pendientes'),
+                const SizedBox(height: 20),
+                 SizedBox(
+                     height: 45,
+                     //width: 60,
+                      child: ElevatedButton(
+                     onPressed: () {
+                         
+                       },
+                      child: const Text('Actualizar',
+                           style: TextStyle(color: Colors.white))),
+                      )
+                    ],
+                  ),
+                 );
+    }
+
+    Widget _textFieldSearch(BuildContext context) {
+    return SafeArea(
+        child: Column(
+      children: [
+        const Text(
+          'Productos',
+          style: TextStyle(
+              fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        SizedBox(
+          height: 45,
+          width: MediaQuery.of(context).size.width * 0.80,
+          child: TextField(
+            keyboardType: TextInputType.number,
+            //onChanged: widget.con.onChangeText,
+            //controller: widget.con.cveOrdenController,
+            decoration: InputDecoration(
+                hintText: 'Buscar Nom. Producto',
+                suffixIcon: const Icon(Icons.search, color: Colors.grey),
+                hintStyle: const TextStyle(fontSize: 17, color: Colors.grey),
+                fillColor: Colors.white,
+                filled: true,
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(color: Colors.grey)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(color: Colors.grey)),
+                contentPadding: const EdgeInsets.all(15)),
+          ),
+        ),
+        //const WarningWidgetGetX(),
+      ],
+    ));
+  }
+
+  Widget _cardProductos(BuildContext context, Product product){
     Size screenSize = MediaQuery.of(context).size;
-    return MaterialApp(
-      home: Scaffold(
-        body: Padding(
+    return GestureDetector(
+      child: Padding(
         padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
         child: Column(
           children: <Widget>[
@@ -47,7 +176,7 @@ class ProductCardWidget extends StatelessWidget {
                                       ])),
                               child: Center(
                                 child: Text(
-                                   'ID',
+                                   '${product.id}',
                                   style: const TextStyle(
                                       fontSize: 15.0,
                                       color: Colors.white,
@@ -84,7 +213,7 @@ class ProductCardWidget extends StatelessWidget {
                                       //height: 45,
                                       width: screenSize.width / 1.25,
                                       child: Text(
-                                        'Nombre Producto',
+                                        '${product.nomProd}',
                                       ),
                                     ),
                                     Column(
@@ -104,7 +233,7 @@ class ProductCardWidget extends StatelessWidget {
                                       //height: 45,
                                       width: screenSize.width / 1.25,
                                       child: Text(
-                                        'Descripción',
+                                        '${product.descProd}',
                                       ),
                                     ),
                                     Column(
@@ -124,7 +253,7 @@ class ProductCardWidget extends StatelessWidget {
                                       //height: 45,
                                       width: screenSize.width / 1.25,
                                       child: Text(
-                                        'Categoría',
+                                        '${product.categoria}',
                                       ),
                                     ),
                                     Row(
@@ -137,7 +266,7 @@ class ProductCardWidget extends StatelessWidget {
                                           width: 5,
                                         ),
                                         Text(
-                                          'Precio',
+                                          '${product.precio}',
                                           style: const TextStyle(fontSize: 16.0),
                                         ),
                                       ],
@@ -152,7 +281,7 @@ class ProductCardWidget extends StatelessWidget {
                                           width: 5,
                                         ),
                                         Text(
-                                          'Stock',
+                                          '${product.stock}',
                                           style: const TextStyle(fontSize: 16.0),
                                         ),
                                       ],
@@ -174,7 +303,7 @@ class ProductCardWidget extends StatelessWidget {
                                       //height: 45,
                                       width: screenSize.width / 1.25,
                                       child: Text(
-                                        'Estatus',
+                                        '${product.estatus}',
                                       ),
                                     ),
                                     const SizedBox(
@@ -194,7 +323,7 @@ class ProductCardWidget extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12)),
                               child: MaterialButton(
-                                onPressed: (){},
+                                onPressed: () => widget.con.goToDetalle(),
                                 child: const Text(
                                   'Ver detalle',
                                   style: TextStyle(
@@ -215,7 +344,6 @@ class ProductCardWidget extends StatelessWidget {
           ],
         ),
       ),
-      ),
     );
   }
-}
+}*/

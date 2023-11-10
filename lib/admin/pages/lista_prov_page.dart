@@ -1,22 +1,24 @@
-import 'package:app_inventario/productos/models/products.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../menu/menu_empleado.dart';
-import '../controller/productos_all_controller.dart';
+import '../../menu/menu_admin_page.dart';
+import '../controller/detalle_prov_controller.dart';
+import '../controller/lista_proveedor_controller.dart';
+import '../models/proveedor.dart';
 
-class ProductosListPage extends StatefulWidget {
-  ProductosListController con = Get.put(ProductosListController());
+class ListProvPage extends StatefulWidget {
+  ListaProveController con = Get.put(ListaProveController());
+  DetalleProvController det = Get.put(DetalleProvController());
 
   @override
-  State<ProductosListPage> createState() => _ProductosListPageState();
+  State<ListProvPage> createState() => _ListProvPageState();
 }
 
-class _ProductosListPageState extends State<ProductosListPage> {
+class _ListProvPageState extends State<ListProvPage> {
   late String barra;
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Scaffold(
+    return Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(110),
           child: AppBar(
@@ -34,18 +36,17 @@ class _ProductosListPageState extends State<ProductosListPage> {
                       children: [
                         _textFieldSearch(
                           context,
-                          
                       ),
                   ],
                 ),
               )
           ),
         ),
-        drawer: MenuEmpleado(),
+        drawer: MenuAdmin(),
         body: SingleChildScrollView(
           child: FutureBuilder(
-            future: widget.con.getBandeja(3, 1),
-            builder: (context, AsyncSnapshot<List<Product>> snapshot){
+            future: widget.con.getBandeja(20, 1),
+            builder: (context, AsyncSnapshot<List<Proveedor>> snapshot){
               if (snapshot.hasData) {
                 if (snapshot.data!.isNotEmpty) {
                   return Column(
@@ -62,7 +63,7 @@ class _ProductosListPageState extends State<ProductosListPage> {
                     ],
                   );
                 } else {
-                  return _botonActualizar();
+                  return Container();
                 }
               } else {
                 return Container();
@@ -70,40 +71,15 @@ class _ProductosListPageState extends State<ProductosListPage> {
             }
           ),
         ),
-      ),
-    );
+      );
   }
 
-    Widget _botonActualizar(){
-      return Container(
-              padding: const EdgeInsets.fromLTRB(50, 120, 50, 50),
-               child: Column(
-               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                            //NoDataWidget(text: 'No hay órdenes pendientes'),
-                const SizedBox(height: 20),
-                 SizedBox(
-                     height: 45,
-                     //width: 60,
-                      child: ElevatedButton(
-                     onPressed: () {
-                         
-                       },
-                      child: const Text('Actualizar',
-                           style: TextStyle(color: Colors.white))),
-                      )
-                    ],
-                  ),
-                 );
-    }
-
-    Widget _textFieldSearch(BuildContext context) {
+  Widget _textFieldSearch(BuildContext context) {
     return SafeArea(
         child: Column(
       children: [
         const Text(
-          'Productos',
+          'Proveedores',
           style: TextStyle(
               fontSize: 20, 
               color: Colors.white, 
@@ -117,10 +93,10 @@ class _ProductosListPageState extends State<ProductosListPage> {
           width: MediaQuery.of(context).size.width * 0.80,
           child: TextField(
             keyboardType: TextInputType.text,
-            onChanged: widget.con.onChangeText,
-            controller: widget.con.nombreProducto,
+            /*onChanged: widget.con.onChangeText,
+            controller: widget.con.nombreProducto,*/
             decoration: InputDecoration(
-                hintText: 'Buscar Nom. Producto',
+                hintText: 'Buscar Nom. Proveedor',
                 suffixIcon: const Icon(Icons.search, color: Colors.grey),
                 hintStyle: const TextStyle(fontSize: 17, color: Colors.grey),
                 fillColor: Colors.white,
@@ -139,7 +115,7 @@ class _ProductosListPageState extends State<ProductosListPage> {
     ));
   }
 
-  Widget _cardProductos(BuildContext context, Product product){
+  Widget _cardProductos(BuildContext context, Proveedor prov){
     Size screenSize = MediaQuery.of(context).size;
     return GestureDetector(
       child: Padding(
@@ -159,37 +135,6 @@ class _ProductosListPageState extends State<ProductosListPage> {
                    mainAxisAlignment: MainAxisAlignment.start,
                    crossAxisAlignment: CrossAxisAlignment.start,
                    children: <Widget>[
-                      Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: Center(
-                            child: Container(
-                              height: 45.0,
-                              width: double.infinity,
-                              decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20),
-                                  ),
-                                  gradient: LinearGradient(
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                      tileMode: TileMode.repeated,
-                                      colors: [
-                                        Color.fromARGB(255, 223, 102, 10),
-                                        Color.fromARGB(255, 117, 179, 9),
-                                      ])),
-                              child: Center(
-                                child: Text(
-                                   '${product.id}',
-                                  style: const TextStyle(
-                                      fontSize: 15.0,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
                         Padding(
                           padding:  const EdgeInsets.only(top: 5.0, left: 15.0),
                           child: Column(
@@ -201,9 +146,9 @@ class _ProductosListPageState extends State<ProductosListPage> {
                                    crossAxisAlignment: CrossAxisAlignment.start,
                                    children: <Widget>[
                                       Column(
-                                        children: <Widget>[
+                                        children: const <Widget>[
                                            Text(
-                                            'Nombre del Producto:',
+                                            'ID del proveedor',
                                             style: TextStyle(
                                                 fontSize: 16.0,
                                                 fontWeight: FontWeight.bold
@@ -217,13 +162,13 @@ class _ProductosListPageState extends State<ProductosListPage> {
                                       //height: 45,
                                       width: screenSize.width / 1.25,
                                       child: Text(
-                                        '${product.nomProd}',
+                                        '${prov.id}',
                                       ),
                                     ),
                                     Column(
-                                        children: <Widget>[
+                                        children: const <Widget>[
                                            Text(
-                                            'Descripción:',
+                                            'Nombre del Proveedor:',
                                             style: TextStyle(
                                                 fontSize: 16.0,
                                                 fontWeight: FontWeight.bold
@@ -237,13 +182,13 @@ class _ProductosListPageState extends State<ProductosListPage> {
                                       //height: 45,
                                       width: screenSize.width / 1.25,
                                       child: Text(
-                                        '${product.descProd}',
+                                        '${prov.contacto}',
                                       ),
                                     ),
                                     Column(
-                                        children: <Widget>[
+                                        children: const <Widget>[
                                            Text(
-                                            'Categoría:',
+                                            'Nombre de la empresa:',
                                             style: TextStyle(
                                                 fontSize: 16.0,
                                                 fontWeight: FontWeight.bold
@@ -257,43 +202,13 @@ class _ProductosListPageState extends State<ProductosListPage> {
                                       //height: 45,
                                       width: screenSize.width / 1.25,
                                       child: Text(
-                                        '${product.categoria}',
+                                        '${prov.nombreEmpresa}',
                                       ),
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        const Text('Precio:',
-                                            style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.bold)),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          '${product.precio}',
-                                          style: const TextStyle(fontSize: 16.0),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        const Text('Stock:',
-                                            style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.bold)),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          '${product.stock}',
-                                          style: const TextStyle(fontSize: 16.0),
-                                        ),
-                                      ],
                                     ),
                                     Column(
-                                        children: <Widget>[
+                                        children: const <Widget>[
                                            Text(
-                                            'Estatus:',
+                                            'Teléfono:',
                                             style: TextStyle(
                                                 fontSize: 16.0,
                                                 fontWeight: FontWeight.bold
@@ -307,7 +222,27 @@ class _ProductosListPageState extends State<ProductosListPage> {
                                       //height: 45,
                                       width: screenSize.width / 1.25,
                                       child: Text(
-                                        '${product.estatus}',
+                                        '${prov.telefono}',
+                                      ),
+                                    ),
+                                    Column(
+                                        children: const <Widget>[
+                                           Text(
+                                            'Correo:',
+                                            style: TextStyle(
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.bold
+                                                // color: Colors.white24
+                                                ),
+                                          ),
+                                          SizedBox(height: 5),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                      //height: 45,
+                                      width: screenSize.width / 1.25,
+                                      child: Text(
+                                        '${prov.correoElectronico}',
                                       ),
                                     ),
                                     const SizedBox(
@@ -327,19 +262,37 @@ class _ProductosListPageState extends State<ProductosListPage> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12)),
                               child: MaterialButton(
-                                onPressed: () => widget.con.goToDetalle(),
+                                onPressed: () => widget.det.goToDetalle(prov.id ?? 0),
+                                color: Color.fromARGB(255, 10, 48, 216),
                                 child: const Text(
-                                  'Ver detalle',
+                                  'Actualizar',
                                   style: TextStyle(
                                       fontSize: 15,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                color: Color.fromARGB(255, 216, 141, 10),
                               )),
                         ),
                         const SizedBox(
                           height: 25,
+                        ),
+                        Center(
+                          child: ButtonTheme(
+                              height: 45,
+                              minWidth: screenSize.width / 2,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12)),
+                              child: MaterialButton(
+                                onPressed: () => widget.con.eleminar(prov.id ?? 0),
+                                color: Color.fromARGB(255, 216, 10, 10),
+                                child: const Text(
+                                  'Eliminar',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              )),
                         ),
                    ],
                 ),

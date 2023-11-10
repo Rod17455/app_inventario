@@ -1,7 +1,9 @@
+import 'package:app_inventario/productos/models/detailProduct.dart';
 import 'package:flutter/material.dart';
 
 class ListaInformacionProd extends StatelessWidget {
-  const ListaInformacionProd({super.key});
+  final DetailProduct detalle;
+  const ListaInformacionProd(this.detalle, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class ListaInformacionProd extends StatelessWidget {
             ),
           ),
           subtitle:
-              Text('Desc', style: const TextStyle(fontSize: 18)),
+              Text(detalle.descProd ?? '', style: const TextStyle(fontSize: 18)),
         ),
         const Divider(),
         ListTile(
@@ -29,7 +31,7 @@ class ListaInformacionProd extends StatelessWidget {
             ),
           ),
           subtitle:
-              Text('Desc', style: const TextStyle(fontSize: 18)),
+              Text(detalle.categoria ?? '', style: const TextStyle(fontSize: 18)),
         ),
         const Divider(),
         ListTile(
@@ -41,7 +43,55 @@ class ListaInformacionProd extends StatelessWidget {
             ),
           ),
           subtitle:
-              Text('Desc', style: const TextStyle(fontSize: 18)),
+              Text(detalle.nombProv ?? '', style: const TextStyle(fontSize: 18)),
+        ),
+        const Divider(),
+        ListTile(
+          title: const Text(
+            'Nombre de la empresa',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          subtitle:
+              Text(detalle.nombEmpresa ?? '', style: const TextStyle(fontSize: 18)),
+        ),
+        const Divider(),
+         ListTile(
+          title: const Text(
+            'Número del proveedor',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          subtitle:
+              Text(detalle.telefonoProv ?? '', style: const TextStyle(fontSize: 18)),
+        ),
+        const Divider(),
+        ListTile(
+          title: const Text(
+            'Email del proveedor',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          subtitle:
+              Text(detalle.emailProv ?? '', style: const TextStyle(fontSize: 18)),
+        ),
+        const Divider(),
+        ListTile(
+          title: const Text(
+            'Estatus',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          subtitle:
+              Text(detalle.estatus ?? '', style: const TextStyle(fontSize: 18)),
         ),
         const Divider(),
 

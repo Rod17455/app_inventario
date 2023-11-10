@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../controller/producto_detalle_controller.dart';
 import '../../widgets/lista_informacion_prod.dart';
 
 class ProductoDetallePage extends StatefulWidget {
-  const ProductoDetallePage({super.key});
+  ProductoDetalleController con =  Get.put(ProductoDetalleController());
 
   @override
   State<ProductoDetallePage> createState() => _ProductoDetallePageState();
@@ -30,7 +32,7 @@ class _ProductoDetallePageState extends State<ProductoDetallePage> {
              const SizedBox(
                 height: 5,
               ),
-              ListaInformacionProd()
+              ListaInformacionProd(widget.con.myProduct)
           ],
         )
       ),
@@ -63,7 +65,7 @@ class _ProductoDetallePageState extends State<ProductoDetallePage> {
                 ),
               ),
               Text(
-                '',
+                widget.con.myProduct.nomProd ?? '',
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 55,
@@ -80,7 +82,7 @@ class _ProductoDetallePageState extends State<ProductoDetallePage> {
                 color: Color.fromARGB(255, 244, 110, 0),
                 child: ListTile(
                   title: Text(
-                    '',
+                     '${widget.con.myProduct.id}',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
@@ -105,7 +107,7 @@ class _ProductoDetallePageState extends State<ProductoDetallePage> {
                 color: Color.fromARGB(255, 244, 110, 0),
                 child: ListTile(
                   title: Text(
-                    '',
+                    '${widget.con.myProduct.stock}',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
@@ -130,7 +132,7 @@ class _ProductoDetallePageState extends State<ProductoDetallePage> {
                 color: Color.fromARGB(255, 244, 110, 0),
                 child: ListTile(
                   title: Text(
-                    '',
+                    '${widget.con.myProduct.precio}',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
@@ -149,6 +151,7 @@ class _ProductoDetallePageState extends State<ProductoDetallePage> {
                 ),
               ),
             ),
+            
           ],
         ),
       ],

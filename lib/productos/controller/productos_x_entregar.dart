@@ -5,7 +5,7 @@ import '../../usuario/models/user.dart';
 import '../models/products.dart';
 import '../providers/product_providers.dart';
 
-class ProductosListRechazadosController extends GetxController{
+class ProductosXEntregarController extends GetxController{
   User user = User.fromJson(GetStorage().read('user') ?? {});
 
   ProductsProviders productaProvider = ProductsProviders();

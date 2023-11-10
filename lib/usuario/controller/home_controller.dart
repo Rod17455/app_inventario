@@ -13,6 +13,8 @@ class HomeController extends GetxController{
   void goToPage(String rol){
     if(rol == 'Empleado'){
       Get.toNamed('/products');
+    } else {
+      Get.toNamed('/admin/provList');
     }
   }
 
