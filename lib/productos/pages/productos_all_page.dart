@@ -16,7 +16,7 @@ class _ProductosListPageState extends State<ProductosListPage> {
   late String barra;
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Scaffold(
+    return  Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(110),
           child: AppBar(
@@ -26,7 +26,7 @@ class _ProductosListPageState extends State<ProductosListPage> {
                       bottom: Radius.circular(30.0),
                     ),
               ),
-              flexibleSpace: Container(
+             flexibleSpace: Container(
                     margin: const EdgeInsets.only(top: 15),
                     alignment: Alignment.topCenter,
                     child: Wrap(
@@ -34,7 +34,6 @@ class _ProductosListPageState extends State<ProductosListPage> {
                       children: [
                         _textFieldSearch(
                           context,
-                          
                       ),
                   ],
                 ),
@@ -70,8 +69,7 @@ class _ProductosListPageState extends State<ProductosListPage> {
             }
           ),
         ),
-      ),
-    );
+      );
   }
 
     Widget _botonActualizar(){
@@ -327,7 +325,8 @@ class _ProductosListPageState extends State<ProductosListPage> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12)),
                               child: MaterialButton(
-                                onPressed: () => widget.con.goToDetalle(),
+                                onPressed: () => widget.con.detalle(product.id ?? 0, context),
+                                color: const Color.fromARGB(255, 216, 141, 10),
                                 child: const Text(
                                   'Ver detalle',
                                   style: TextStyle(
@@ -335,7 +334,6 @@ class _ProductosListPageState extends State<ProductosListPage> {
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                color: Color.fromARGB(255, 216, 141, 10),
                               )),
                         ),
                         const SizedBox(

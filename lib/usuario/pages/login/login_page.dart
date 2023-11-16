@@ -76,7 +76,7 @@ class LoginPage extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              onPressed: () => con.login(),
+              onPressed: () => con.login(context),
               child: const Text(
                 "Login",
                 style: TextStyle(

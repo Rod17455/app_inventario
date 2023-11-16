@@ -68,7 +68,7 @@ class _ProductoDetallePageState extends State<ProductoDetallePage> {
                 widget.con.myProduct.nomProd ?? '',
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 55,
+                  fontSize: 20,
                 ),
               ),
             ],

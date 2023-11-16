@@ -25,7 +25,7 @@ class ListaProveController extends GetxController{
   void detalle(int id) async {
     //ALAMACENA LA RESPUESTA QUE DA EL SERVIDOR, ESPECIFICANDO LA RUTA DE ESTE
     ResponseApi responseApi = await adminProviders.detalle(id);
-    print('RESPONSE API: ${responseApi.toJson()}');
+    //print('RESPONSE API: ${responseApi.toJson()}');
 
     //COMPARA SI CONTIENE DATOS
     if (responseApi.success == true) {
