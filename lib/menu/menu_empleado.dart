@@ -31,7 +31,7 @@ class _MenuEmpleadoState extends State<MenuEmpleado> {
                 color: Colors.black,
               ),
               title: const Text('Inicio'),
-              onTap: (){},
+              onTap: () => widget.con.goToInicio(),
             ),
             ListTile(
               leading: const Icon(
@@ -48,6 +48,22 @@ class _MenuEmpleadoState extends State<MenuEmpleado> {
                     ),
                     title: const Text('Rechazados'),
                     onTap: ()=> widget.con.goToProductosRechazados()
+            ),
+            ListTile(
+                    leading: const Icon(
+                      Icons.alarm_add_rounded,
+                      color: Colors.black,
+                    ),
+                    title: const Text('Productos por llegar'),
+                    onTap: ()=> widget.con.goToProductoXEntregar()
+            ),
+            ListTile(
+                    leading: const Icon(
+                      Icons.hourglass_empty,
+                      color: Colors.black,
+                    ),
+                    title: const Text('Productos sin Stock'),
+                    onTap: ()=> widget.con.goToProductoSinStock()
             ),
             ListTile(
               leading: const Icon(

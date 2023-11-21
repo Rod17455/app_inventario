@@ -2,47 +2,46 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../menu/menu_empleado.dart';
-import '../../controller/productos_pendientes_constroller.dart';
+import '../../../widgets/conexion_internet/warning_widget_getx.dart';
+import '../../controller/productos_sin_stock_controller.dart';
 import '../../models/products.dart';
 
-
-class ProductosPendientesListPage extends StatefulWidget {
-  ProductosListPendientesController con = Get.put(ProductosListPendientesController());
+class ProductosSinStock extends StatefulWidget {
+  ProductosSinStockController con = Get.put(ProductosSinStockController());
 
   @override
-  State<ProductosPendientesListPage> createState() => _ProductosPendientesListPageState();
+  State<ProductosSinStock> createState() => _ProductosSinStockState();
 }
 
-class _ProductosPendientesListPageState extends State<ProductosPendientesListPage> {
+class _ProductosSinStockState extends State<ProductosSinStock> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(110),
-        child: AppBar(
-           backgroundColor: Color.fromARGB(255, 61, 121, 242),
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(30.0),
-                  ),
-            ),
-            flexibleSpace: Container(
-                  margin: const EdgeInsets.only(top: 15),
-                  alignment: Alignment.topCenter,
-                  child: Wrap(
-                    direction: Axis.horizontal,
-                    children: [
-                      _textFieldSearch(
-                        context,
-                        
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(110),
+          child: AppBar(
+             backgroundColor: Color.fromARGB(255, 61, 121, 242),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                      bottom: Radius.circular(30.0),
                     ),
-                ],
               ),
-            )
+             flexibleSpace: Container(
+                    margin: const EdgeInsets.only(top: 15),
+                    alignment: Alignment.topCenter,
+                    child: Wrap(
+                      direction: Axis.horizontal,
+                      children: [
+                        _textFieldSearch(
+                          context,
+                      ),
+                  ],
+                ),
+              )
+          ),
         ),
-      ),
-      drawer: MenuEmpleado(),
-      body: SingleChildScrollView(
+        drawer: MenuEmpleado(),
+        body: SingleChildScrollView(
           child: FutureBuilder(
             future: widget.con.getBandeja(3, 1),
             builder: (context, AsyncSnapshot<List<Product>> snapshot){
@@ -70,10 +69,10 @@ class _ProductosPendientesListPageState extends State<ProductosPendientesListPag
             }
           ),
         ),
-    );
+      );
   }
 
-    Widget _botonActualizar(){
+  Widget _botonActualizar(){
       return Container(
               padding: const EdgeInsets.fromLTRB(50, 120, 50, 50),
                child: Column(
@@ -102,9 +101,11 @@ class _ProductosPendientesListPageState extends State<ProductosPendientesListPag
         child: Column(
       children: [
         const Text(
-          'Productos Pendientes',
+          'Productos sin Stock',
           style: TextStyle(
-              fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+              fontSize: 20, 
+              color: Colors.white, 
+              fontWeight: FontWeight.bold),
         ),
         const SizedBox(
           height: 10,
@@ -113,9 +114,9 @@ class _ProductosPendientesListPageState extends State<ProductosPendientesListPag
           height: 45,
           width: MediaQuery.of(context).size.width * 0.80,
           child: TextField(
-            keyboardType: TextInputType.number,
-            //onChanged: widget.con.onChangeText,
-            //controller: widget.con.cveOrdenController,
+            keyboardType: TextInputType.text,
+            onChanged: widget.con.onChangeText,
+            controller: widget.con.nombreProducto,
             decoration: InputDecoration(
                 hintText: 'Buscar Nom. Producto',
                 suffixIcon: const Icon(Icons.search, color: Colors.grey),
@@ -131,20 +132,20 @@ class _ProductosPendientesListPageState extends State<ProductosPendientesListPag
                 contentPadding: const EdgeInsets.all(15)),
           ),
         ),
-        //const WarningWidgetGetX(),
+        const WarningWidgetGetX(),
       ],
     ));
   }
 
-    Widget _line() {
-      return Container(
-        height: 1.0,
-        width: double.infinity,
-        color: Colors.black,
-      );
-    }
+  Widget _line() {
+    return Container(
+      height: 1.0,
+      width: double.infinity,
+      color: Colors.black,
+    );
+  }
 
-    Widget _cardProductos(BuildContext context, Product product) {
+  Widget _cardProductos(BuildContext context, Product product) {
     return GestureDetector(
       child: Padding(
           padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
@@ -281,8 +282,8 @@ class _ProductosPendientesListPageState extends State<ProductosPendientesListPag
                           end: Alignment.bottomRight,
                           tileMode: TileMode.repeated,
                           colors: [
-                            Color.fromARGB(255, 61, 121, 242),
-                            Color.fromARGB(255, 61, 121, 242),
+                            Color.fromARGB(255, 235, 32, 32),
+                            Color.fromARGB(255, 235, 32, 32),
                           ])),
                   child: Center(
                     child: Text(

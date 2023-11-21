@@ -9,7 +9,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 244, 110, 0),
+      backgroundColor: const Color.fromARGB(255, 61, 121, 242),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -21,9 +21,9 @@ class WelcomeScreen extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             const Text(
-              "Welcome to the ",
+              "Bienvenido",
               style: TextStyle(
-                fontSize: 28.0,
+                fontSize: 30.0,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
@@ -38,7 +38,7 @@ class WelcomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 40.0),
             const Text(
-              "Your rols:",
+              "Tus roles:",
               style: TextStyle(
                 fontSize: 30.0,
                 fontWeight: FontWeight.bold,

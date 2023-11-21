@@ -35,7 +35,7 @@ class ProductsProviders extends GetConnect{
       return [];
 
   }
-  print('PRODUCTO: ${response.body}');
+  //print('PRODUCTO: ${response.body}');
   List<Product> product = Product.fromJsonList(response.body['registers'] ?? []);
 
   return product;
@@ -78,6 +78,35 @@ class ProductsProviders extends GetConnect{
       "categoria": product.categoria,
       "precio": product.precio,
       "stock": product.stock
+    }, headers: {
+      //ESTA RESPUESTA LO CONVIERTE APLICATIVO JSON
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${userSession.sesionToken}'
+    }); // ESPERAR HASTA QUE EL SERVIDOR NOS RETORNE LA RESPUESTA
+
+    //COMPARA SI CONTIENE ALGUN DATO
+    if (response.body == null) {
+      Get.snackbar('Error', 'No se pudo ejecutar la peticion',
+          backgroundColor: const Color(0xFFD62A2C),
+          colorText: Colors.white,
+          duration: const Duration(seconds: 4, milliseconds: 1000),
+          icon: const Icon(Icons.cancel_outlined));
+      return ResponseApi();
+    }
+
+    ResponseApi responseApi = ResponseApi.fromJson(response.body);
+    return responseApi;
+  }
+
+  Future<ResponseApi> addEscasez(DetailProduct product, int cantidad, int idUsuario) async {
+    //ALMACENA EL RESULTADO MEDINATE LA URL
+    Response response =
+        await post('$url', 
+    {
+      "idProducto": product.id,
+      "cantidad": cantidad,
+      "precio": product.precio,
+      "idUsuario": idUsuario,
     }, headers: {
       //ESTA RESPUESTA LO CONVIERTE APLICATIVO JSON
       'Content-Type': 'application/json',
@@ -172,7 +201,34 @@ class ProductsProviders extends GetConnect{
       return [];
 
   }
-  print('${response.body}');
+  //print('${response.body}');
+  List<Product> product = Product.fromJsonList(response.body['registers'] ?? []);
+
+  return product;
+
+  }
+
+  Future<List<Product>> bandejaProductoSinStock(int pageSize, int pageIndex,) async {
+
+    Response response = await get(
+      '$url/sinStock?pageSize=$pageSize&pageIndex=$pageIndex&search=',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${userSession.sesionToken}'
+      }
+    );
+
+    if (response.statusCode != 200) {
+      Get.snackbar('Peticion denegada',
+          'Error en recuperar la información',
+          backgroundColor: const Color(0xFFD62A2C),
+          colorText: Colors.white,
+          duration: const Duration(seconds: 4, milliseconds: 1000),
+          icon: const Icon(Icons.cancel_outlined));
+      return [];
+
+  }
+  //print('${response.body}');
   List<Product> product = Product.fromJsonList(response.body['registers'] ?? []);
 
   return product;

@@ -1,39 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controller/producto_detalle_controller.dart';
-import '../../widgets/lista_informacion_prod.dart';
+import '../controller/detalle_productos_x_autorizar.dart';
+import '../widget/lista_informacion_escasez.dart';
 
-class ProductoDetallePage extends StatefulWidget {
-  ProductoDetalleController con =  Get.put(ProductoDetalleController());
+class DetalleEscasezXAutorizarPage extends StatefulWidget {
+  DetalleEscasezXAutorizarController con = Get.put(DetalleEscasezXAutorizarController());
 
   @override
-  State<ProductoDetallePage> createState() => _ProductoDetallePageState();
+  State<DetalleEscasezXAutorizarPage> createState() => _DetalleEscasezXAutorizarPageState();
 }
 
-class _ProductoDetallePageState extends State<ProductoDetallePage> {
+class _DetalleEscasezXAutorizarPageState extends State<DetalleEscasezXAutorizarPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-   Map<int, Color> colors = {
-    1: Color.fromARGB(255, 2, 145, 2),
-    2: Color.fromARGB(255, 226, 156, 5),
-    3: Color.fromARGB(255, 235, 32, 32),
-    4: Color.fromARGB(255, 61, 121, 242),
-    5: Color.fromARGB(255, 128, 0, 0),
-    6: Color.fromARGB(255, 9, 163, 89),
-    7: Color.fromARGB(255, 2, 30, 101)
-  };
-
 
   @override
   Widget build(BuildContext context) {
-    Color? color = colors[widget.con.myProduct.idEstatus];
     return Scaffold(
       appBar: AppBar(
         title: const Text('Información del producto'),
         centerTitle: true,
         automaticallyImplyLeading: true,
-        backgroundColor: color,
+        backgroundColor: Color.fromARGB(255, 61, 121, 242),
         elevation: 0,
       ),
      key: _scaffoldKey,
@@ -44,8 +32,9 @@ class _ProductoDetallePageState extends State<ProductoDetallePage> {
              const SizedBox(
                 height: 5,
               ),
-              ListaInformacionProd(widget.con.myProduct),
-            _boton(widget.con.myProduct.idEstatus ?? 0, context)
+              ListaInformacionEscasezXAutorizar(widget.con.detailsEscasez),
+              _botones(widget.con.detailsEscasez.estatus ?? '', context)
+            //_boton(widget.con.myProduct.idEstatus ?? 0, context)
           ],
         )
       ),
@@ -53,17 +42,16 @@ class _ProductoDetallePageState extends State<ProductoDetallePage> {
   }
 
   Widget _encabezado() {
-    Color? color = colors[widget.con.myProduct.idEstatus];
     return Column(
       children: [
         Container(
           width: double.infinity,
-          height: 400,
-          decoration: BoxDecoration(
+          height: 150,
+          decoration: const BoxDecoration(
               gradient: LinearGradient(
                   colors: [
-                    color ?? Color.fromARGB(255, 61, 121, 242),
-                    color ?? Color.fromARGB(255, 61, 121, 242),
+                     Color.fromARGB(255, 61, 121, 242),
+                     Color.fromARGB(255, 61, 121, 242),
                   ],
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
@@ -80,7 +68,7 @@ class _ProductoDetallePageState extends State<ProductoDetallePage> {
                 ),
               ),
               Text(
-                widget.con.myProduct.nomProd ?? '',
+                widget.con.detailsEscasez.nomProducto ?? '',
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -96,10 +84,10 @@ class _ProductoDetallePageState extends State<ProductoDetallePage> {
             Expanded(
               child: Container(
                 height: 75,
-                color: color,
+                color: const Color.fromARGB(255, 61, 121, 242),
                 child: ListTile(
                   title: Text(
-                     '${widget.con.myProduct.id}',
+                     '${widget.con.detailsEscasez.id}',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
@@ -108,7 +96,7 @@ class _ProductoDetallePageState extends State<ProductoDetallePage> {
                     ),
                   ),
                   subtitle: const Text(
-                    'Id producto',
+                    'Id Escasez',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 15,
@@ -121,10 +109,10 @@ class _ProductoDetallePageState extends State<ProductoDetallePage> {
             Expanded(
               child: Container(
                 height: 75,
-                color: color,
+                color: const Color.fromARGB(255, 61, 121, 242),
                 child: ListTile(
                   title: Text(
-                    '${widget.con.myProduct.stock}',
+                    '${widget.con.detailsEscasez.cantSoli}',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
@@ -133,7 +121,7 @@ class _ProductoDetallePageState extends State<ProductoDetallePage> {
                     ),
                   ),
                   subtitle: const Text(
-                    'Stock',
+                    'Cantidad',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 15,
@@ -146,10 +134,10 @@ class _ProductoDetallePageState extends State<ProductoDetallePage> {
             Expanded(
               child: Container(
                 height: 75,
-                color: color,
+                color: const Color.fromARGB(255, 61, 121, 242),
                 child: ListTile(
                   title: Text(
-                    '${widget.con.myProduct.precio}',
+                    '${widget.con.detailsEscasez.precio}',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
@@ -176,47 +164,21 @@ class _ProductoDetallePageState extends State<ProductoDetallePage> {
     );
   }
 
-  
-
-  Widget _boton(int estatus, BuildContext context) {
-    
-    if(estatus == 3){
+  Widget _botones(String estatus, BuildContext context) {
+    if(estatus == '4 - Pendiente'){
         return Column(
         children: <Widget>[
-          SizedBox(
-            width: 150,
-            child: TextField(
-            //minLines: 5,
-            controller: widget.con.cantidadController,
-            //obscureText: obscureText,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-                labelText: "Cantidad",
-                contentPadding: EdgeInsets.symmetric(vertical: 20,
-                    horizontal: 10),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: Colors.grey
-                  ),
-                ),
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)
-                )
-            ),
-                  ),
-          ),
-        const SizedBox(height: 10,),
-        ButtonTheme(
+          ButtonTheme(
             height: 40,
             minWidth: 250,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             child: MaterialButton(
               onPressed: () {
-                widget.con.addEscasez(context);
+                //_showDialog(context, _cveOrden, cveUser);
               },
               child: const Text(
-                'Solicitar',
+                'Autorizar',
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -228,11 +190,30 @@ class _ProductoDetallePageState extends State<ProductoDetallePage> {
           const SizedBox(
             height: 10,
           ),
-          
+          ButtonTheme(
+            height: 40,
+            minWidth: 250,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            child: MaterialButton(
+              onPressed: () {
+                //widget.con.goToMensajeRechazo(_cveOrden);
+              },
+              child: const Text(
+                'Rechazar',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              color: const Color.fromARGB(255, 210, 39, 39),
+            ),
+          ),
         ],
       );
     } else {
       return Container();
     }
   }
+
 }

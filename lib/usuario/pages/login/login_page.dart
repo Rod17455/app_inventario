@@ -70,7 +70,7 @@ class LoginPage extends StatelessWidget {
           Container(
             width: double.infinity,
             child: RawMaterialButton(
-              fillColor: Color.fromARGB(255, 244, 110, 0),
+              fillColor: Color.fromARGB(255, 61, 121, 242),
               elevation: 0.0,
               padding: EdgeInsets.symmetric(vertical: 20.0),
               shape: RoundedRectangleBorder(

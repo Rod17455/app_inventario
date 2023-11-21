@@ -19,7 +19,7 @@ class HomeController extends GetxController{
     if(rol == 'Empleado'){
       Get.toNamed('/products');
     } else {
-      Get.toNamed('/admin/provList');
+      Get.toNamed('/gerente');
     }
   }
 

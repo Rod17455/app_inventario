@@ -9,6 +9,19 @@ class MenuEmpleadoController extends GetxController{
   void goToProductosRechazados(){
     Get.toNamed('/productsRechazados');
   }
+
+  void goToInicio(){
+    Get.toNamed('/products');
+  }
+
+  void goToProductoXEntregar(){
+    Get.toNamed('/productsXEntregar');
+  }
+
+  void goToProductoSinStock(){
+    Get.toNamed('/productsSinStock');
+  }
+
   void signOut() {
     GetStorage().remove('user');
     Get.offNamedUntil(

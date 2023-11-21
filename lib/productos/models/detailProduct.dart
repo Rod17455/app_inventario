@@ -15,11 +15,12 @@ class DetailProduct {
     double? precio;
     int? stock;
     String? nombEmpresa;
-    //dynamic imagen;
+    String? imagen;
     String? estatus;
     String? nombProv;
     String? telefonoProv;
     String? emailProv;
+    int? idEstatus;
     int? id;
 
     DetailProduct({
@@ -29,11 +30,12 @@ class DetailProduct {
          this.precio,
          this.stock,
          this.nombEmpresa,
-         //this.imagen,
+         this.imagen,
          this.estatus,
          this.nombProv,
          this.telefonoProv,
          this.emailProv,
+         this.idEstatus,
          this.id,
     });
 
@@ -44,11 +46,12 @@ class DetailProduct {
         precio: json["precio"],
         stock: json["stock"],
         nombEmpresa: json["nombEmpresa"],
-        //imagen: json["imagen"],
+        imagen: json["imagen"],
         estatus: json["estatus"],
         nombProv: json["nombProv"],
         telefonoProv: json["telefonoProv"],
         emailProv: json["emailProv"],
+        idEstatus: json["idEstatus"],
         id: json["id"],
     );
 
@@ -59,11 +62,12 @@ class DetailProduct {
         "precio": precio,
         "stock": stock,
         "nombEmpresa": nombEmpresa,
-        //"imagen": imagen,
+        "imagen": imagen,
         "estatus": estatus,
         "nombProv": nombProv,
         "telefonoProv": telefonoProv,
         "emailProv": emailProv,
+        "idEstatus":idEstatus,
         "id": id,
     };
 }

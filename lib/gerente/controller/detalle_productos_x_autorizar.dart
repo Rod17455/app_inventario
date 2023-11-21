@@ -1,30 +1,24 @@
-import 'package:app_inventario/gerente/providers/gerente_providers.dart';
-import 'package:app_inventario/usuario/models/response_api.dart';
+import 'package:app_inventario/gerente/models/detailEscasez.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 
+import '../../usuario/models/response_api.dart';
 import '../../usuario/models/user.dart';
-import '../models/detailProduct.dart';
+import '../providers/gerente_providers.dart';
 
-class ProductoDetalleController extends GetxController{
-
-  TextEditingController cantidadController = TextEditingController();
-
+class DetalleEscasezXAutorizarController extends GetxController{
+  //TextEditingController cantidadController = TextEditingController();
+  DetailsEscasez detailsEscasez = DetailsEscasez.fromJson(GetStorage().read('escasez') ?? {});
   GerenteProviders gerenteProviders = GerenteProviders();
-  
+
   User user = User.fromJson(GetStorage().read('user') ?? {});
 
-  DetailProduct myProduct = DetailProduct.fromJson(GetStorage().read('producto') ?? {});
-
-  void addEscasez(BuildContext context) async{
-    int cantidad = int.parse(cantidadController.text.trim());
-
-    if(isValidForm(cantidad)){
-      ProgressDialog progressDialog = ProgressDialog(context: context);
+  void autorizar(BuildContext context) async{
+    ProgressDialog progressDialog = ProgressDialog(context: context);
       progressDialog.show(max: 800, msg: 'Registrando Datos....');
-      ResponseApi responseApi = await gerenteProviders.addEscasez(myProduct, cantidad);
+      ResponseApi responseApi = await gerenteProviders.autorizar(detailsEscasez);
       progressDialog.close();
 
       if (responseApi.estatus == true) {
@@ -47,22 +41,11 @@ class ProductoDetalleController extends GetxController{
         
       }
 
-    }
-
   }
 
    void goToInicio(){
-    Get.toNamed('/products');
+    Get.toNamed('/gerente');
   }
 
-  bool isValidForm(int cantidad){
-    // ignore: unnecessary_null_comparison
-    if(cantidad == null){
-      Get.snackbar('Cantidad no ingresada', 'Debes de ingresar la cantidad');
-      return false;
-    }
-
-    return true;
-  }
 
 }

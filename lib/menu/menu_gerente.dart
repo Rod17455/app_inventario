@@ -40,14 +40,6 @@ class _MenuGerenteState extends State<MenuGerente> {
               title: const Text('Productos autorizados'),
               onTap: ()=> widget.con.goToProductosAutorizados(),
             ),
-             ListTile(
-                    leading: const Icon(
-                      Icons.cancel,
-                      color: Colors.black,
-                    ),
-                    title: const Text('Productos Rechazados'),
-                    onTap: ()=> widget.con.goToProductosRechazados()
-            ),
             ListTile(
               leading: const Icon(
                 Icons.exit_to_app,
