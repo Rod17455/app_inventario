@@ -70,13 +70,13 @@ class LoginPage extends StatelessWidget {
           Container(
             width: double.infinity,
             child: RawMaterialButton(
-              fillColor: Color.fromARGB(255, 244, 110, 0),
+              fillColor: Color.fromARGB(255, 61, 121, 242),
               elevation: 0.0,
               padding: EdgeInsets.symmetric(vertical: 20.0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              onPressed: () => con.login(),
+              onPressed: () => con.login(context),
               child: const Text(
                 "Login",
                 style: TextStyle(

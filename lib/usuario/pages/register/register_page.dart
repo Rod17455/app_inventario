@@ -49,13 +49,13 @@ class _RegisterPageState extends State<RegisterPage> {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  Text("Hola bienvenido, Regístrate ahora :)",
+                  const Text("Hola bienvenido, Regístrate ahora :)",
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
 
                   ),),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   Text("Crea una cuenta, es gratis",
                     style: TextStyle(
                         fontSize: 15,
@@ -76,7 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 decoration:
                 BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
-                    border: Border(
+                    border: const Border(
                       bottom: BorderSide(color: Colors.black),
                       top: BorderSide(color: Colors.black),
                       left: BorderSide(color: Colors.black),
@@ -89,18 +89,18 @@ class _RegisterPageState extends State<RegisterPage> {
                   onPressed: () {
                     setState(() {
                       if(isChecked1){
-                        widget.con.register();
+                        widget.con.register(context);
                       } else {
                         Get.snackbar("Revise la política de privacidad", 'Lea y luego selecciona la casilla');
                       }
                     });
                   },
-                  color: Color.fromARGB(255, 244, 110, 0),
+                  color: Color.fromARGB(255, 61, 121, 242),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
-                  child: Text(
+                  child: const Text(
                     "Sign up", style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 18,

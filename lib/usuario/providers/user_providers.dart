@@ -9,13 +9,19 @@ class UsersProviders extends GetConnect{
   String url = Environment.API_URL + 'usuario';
 
   Future<Response> create(User user) async{
+
+    //print('JSON: ${user.toJson()}');
     Response response = await post(
       '$url/register',
       user.toJson(),
       headers: {
-        'Content-Type': 'application/json'
-      }
+          'Content-Type': 'application/json'
+        }
     );
+    print("ESTATUS: ${response.statusCode}");
+     if(response.body == null){
+      Get.snackbar('Error', 'No se pudo ejecutar la petición');
+    }
     return response;
   }
 
@@ -27,10 +33,10 @@ class UsersProviders extends GetConnect{
         "password":password
       },
       headers: {
-        'Content-Type': 'application/json'
-      }
+          'Content-Type': 'application/json'
+        }
     );
-
+    print("ESTATUS: ${response.statusCode}");
     if(response.body == null){
       Get.snackbar('Error', 'No se pudo ejecutar la petición');
       return ResponseApi();

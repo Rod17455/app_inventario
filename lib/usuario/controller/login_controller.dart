@@ -1,7 +1,8 @@
 import 'package:app_inventario/usuario/models/response_api.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:get_storage/get_storage.dart';
+import 'package:sn_progress_dialog/progress_dialog.dart';
 import '../providers/user_providers.dart';
 
 class LoginController extends GetxController{
@@ -15,7 +16,7 @@ class LoginController extends GetxController{
     Get.toNamed('/register');
   }
 
-  void login() async{
+  void login(BuildContext context) async{
     String username = usernameController.text.trim();
     String password = passwordController.text.trim();
 
@@ -23,22 +24,31 @@ class LoginController extends GetxController{
     print('Password ${password}');
 
     if(isValidForm(username, password)){
-      ResponseApi responseApi = await userProvider.login(username, password);
 
-      print('Response Api: ${responseApi.toJson()}');
+      //goToHomePage();
+      ProgressDialog progressDialog = ProgressDialog(context: context);
+      progressDialog.show(max: 300, msg: 'Validando los datos....');
+      ResponseApi responseApi = await userProvider.login(username, password);
+      progressDialog.close();
+      //print('Response Api: ${responseApi.toJson()}');
 
       if(responseApi.success == true){
-      
-        Get.snackbar('Login exitoso', responseApi.message ?? '');
+
+        GetStorage().write('user', responseApi.data); // DATOS DEL USUARIO EN SESIÓN
+        goToHomePage();
 
       } else {
         Get.snackbar('Login fallido', responseApi.message ?? '');
       }
-
-      Get.snackbar("Formulario Valido", 'Estas listo para ingresar');
+      
+      //Get.snackbar("Formulario Valido", 'Estas listo para ingresar');
     }
 
     
+  }
+
+  void goToHomePage(){
+    Get.toNamed('/home');
   }
 
   bool isValidForm(String username, String password){
