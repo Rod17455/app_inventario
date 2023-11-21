@@ -64,7 +64,12 @@ class _ProductosXAutorizarPageState extends State<ProductosXAutorizarPage> {
                   return _botonActualizar();
                 }
               } else {
-                return Container();
+                return Center(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: const [CircularProgressIndicator()],
+                    ));
               }
             }
           ),
