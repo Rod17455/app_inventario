@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import 'package:app_inventario/gerente/models/detailEscasez.dart';
-import 'package:app_inventario/gerente/models/escasez.dart';
-import 'package:app_inventario/gerente/providers/gerente_providers.dart';
+import 'package:app_inventario/gerente/models/vistoBueno.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -10,8 +8,10 @@ import 'package:sn_progress_dialog/progress_dialog.dart';
 
 import '../../usuario/models/response_api.dart';
 import '../../usuario/models/user.dart';
+import '../models/detailVistoBueno.dart';
+import '../providers/gerente_providers.dart';
 
-class ProductosXAutorizarController extends GetxController{
+class EsacasezAutorizadosController extends GetxController{
   User user = User.fromJson(GetStorage().read('user') ?? {});
 
   GerenteProviders gerenteProviders = GerenteProviders();
@@ -22,24 +22,24 @@ class ProductosXAutorizarController extends GetxController{
   Timer? searchOnStoppedTyping;
 
   void goToDetalle(){
-    Get.toNamed('/gerente/detailXAutorizar');
+    Get.toNamed('/gerente/detailAutorizado');
   }
 
   void detalle(int id, BuildContext context) async {
     //ALAMACENA LA RESPUESTA QUE DA EL SERVIDOR, ESPECIFICANDO LA RUTA DE ESTE
     ProgressDialog progressDialog = ProgressDialog(context: context);
     progressDialog.show(max: 300, msg: 'Validando los datos....');
-    ResponseApi responseApi = await gerenteProviders.detalle(id);
+    ResponseApi responseApi = await gerenteProviders.detalleAutorizado(id);
     progressDialog.close();
     //print('RESPONSE API: ${responseApi.toJson()}');
 
     //COMPARA SI CONTIENE DATOS
     if (responseApi.success == true) {
       GetStorage().write(
-          'escasez', responseApi.data); //ALMACENA LOS DATOS DE LA ORDEN DE COMPRA
+          'visto', responseApi.data); //ALMACENA LOS DATOS DE LA ORDEN DE COMPRA
 
       //LOS DATOS ALMACENADOS DEL SERVIDOR LOS ALMACENA EN UN OBJETO
-      DetailsEscasez myEscasez = DetailsEscasez.fromJson(GetStorage().read('escasez') ?? {});
+      DeatialVistoBueno visto = DeatialVistoBueno.fromJson(GetStorage().read('visto') ?? {});
 
       goToDetalle();
     } else {
@@ -53,8 +53,8 @@ class ProductosXAutorizarController extends GetxController{
     }
   }
 
-  Future<List<Escasez>> getBandeja(int pageSize, int pageIndex) async {
-      return await gerenteProviders.bandejaEscasezPendientes(pageSize, pageIndex);
+  Future<List<VistoBueno>> getBandeja(int pageSize, int pageIndex) async {
+      return await gerenteProviders.bandejaEscasezAutorizadas(pageSize, pageIndex);
   }
 
 

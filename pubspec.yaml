@@ -40,6 +40,9 @@ dependencies:
   url_launcher: ^6.0.8
   http: ^0.13.4
   sn_progress_dialog: ^1.0.3
+  connectivity_plus: ^2.3.6 # MANEJA LA CONECTIVIDAD DE LA RED
+  rxdart: ^0.27.5 # MEJORA EL PROCESO DE ACTUALIZACIONES
+  hexcolor: ^3.0.1
   
 
 dev_dependencies:

@@ -9,8 +9,10 @@ class UsersProviders extends GetConnect{
   String url = Environment.API_URL + 'usuario';
 
   Future<Response> create(User user) async{
+
+    //print('JSON: ${user.toJson()}');
     Response response = await post(
-      'http://localhost:5000/api/usuario/register',
+      '$url/register',
       user.toJson(),
       headers: {
           'Content-Type': 'application/json'
@@ -25,7 +27,7 @@ class UsersProviders extends GetConnect{
 
   Future<ResponseApi> login(String username, String password) async{
     Response response = await post(
-      'http://localhost:5000/api/usuario/token',
+      '$url/token',
       {
         "username":username,
         "password":password

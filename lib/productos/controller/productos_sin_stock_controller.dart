@@ -1,8 +1,5 @@
 import 'dart:async';
 
-import 'package:app_inventario/gerente/models/detailEscasez.dart';
-import 'package:app_inventario/gerente/models/escasez.dart';
-import 'package:app_inventario/gerente/providers/gerente_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -10,36 +7,39 @@ import 'package:sn_progress_dialog/progress_dialog.dart';
 
 import '../../usuario/models/response_api.dart';
 import '../../usuario/models/user.dart';
+import '../models/detailProduct.dart';
+import '../models/products.dart';
+import '../providers/product_providers.dart';
 
-class ProductosXAutorizarController extends GetxController{
+class ProductosSinStockController extends GetxController{
   User user = User.fromJson(GetStorage().read('user') ?? {});
 
-  GerenteProviders gerenteProviders = GerenteProviders();
+  ProductsProviders productaProvider = ProductsProviders();
 
-   // CONTROLADORES DE LOS CAMPOS DE TEXTOS
+  // CONTROLADORES DE LOS CAMPOS DE TEXTOS
   TextEditingController nombreProducto = TextEditingController();
   var nomProduct = ''.obs;
   Timer? searchOnStoppedTyping;
 
   void goToDetalle(){
-    Get.toNamed('/gerente/detailXAutorizar');
+    Get.toNamed('/productsDetail');
   }
 
   void detalle(int id, BuildContext context) async {
     //ALAMACENA LA RESPUESTA QUE DA EL SERVIDOR, ESPECIFICANDO LA RUTA DE ESTE
     ProgressDialog progressDialog = ProgressDialog(context: context);
     progressDialog.show(max: 300, msg: 'Validando los datos....');
-    ResponseApi responseApi = await gerenteProviders.detalle(id);
+    ResponseApi responseApi = await productaProvider.detalle(id);
     progressDialog.close();
     //print('RESPONSE API: ${responseApi.toJson()}');
 
     //COMPARA SI CONTIENE DATOS
     if (responseApi.success == true) {
       GetStorage().write(
-          'escasez', responseApi.data); //ALMACENA LOS DATOS DE LA ORDEN DE COMPRA
+          'producto', responseApi.data); //ALMACENA LOS DATOS DE LA ORDEN DE COMPRA
 
       //LOS DATOS ALMACENADOS DEL SERVIDOR LOS ALMACENA EN UN OBJETO
-      DetailsEscasez myEscasez = DetailsEscasez.fromJson(GetStorage().read('escasez') ?? {});
+      DetailProduct myProduct = DetailProduct.fromJson(GetStorage().read('producto') ?? {});
 
       goToDetalle();
     } else {
@@ -53,9 +53,19 @@ class ProductosXAutorizarController extends GetxController{
     }
   }
 
-  Future<List<Escasez>> getBandeja(int pageSize, int pageIndex) async {
-      return await gerenteProviders.bandejaEscasezPendientes(pageSize, pageIndex);
+
+  void onChangeText(String text) {
+    const duration = Duration(milliseconds: 1000);
+    if (searchOnStoppedTyping != null) {
+      searchOnStoppedTyping?.cancel();
+    }
+
+    searchOnStoppedTyping = Timer(duration, () {
+      nomProduct.value = text;
+    });
   }
 
-
+  Future<List<Product>> getBandeja(int pageSize, int pageIndex) async {
+      return await productaProvider.bandejaProductoSinStock(pageSize, pageIndex);
+  }
 }

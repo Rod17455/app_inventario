@@ -16,6 +16,7 @@ class Product {
     double? precio;
     int? stock;
     int? estatus;
+    String? color;
 
     Product({
          this.id,
@@ -25,6 +26,7 @@ class Product {
          this.precio,
          this.stock,
          this.estatus,
+         this.color
     });
 
     factory Product.fromJson(Map<String, dynamic> json) => Product(
@@ -35,6 +37,7 @@ class Product {
         precio: json["precio"],
         stock: json["stock"],
         estatus: json["estatus"],
+        color: json["color"]
     );
 
     static List<Product> fromJsonList(List<dynamic> jsonList){
@@ -54,5 +57,6 @@ class Product {
         "precio": precio,
         "stock": stock,
         "estatus": estatus,
+        "color": color
     };
 }

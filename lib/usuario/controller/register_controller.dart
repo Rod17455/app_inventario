@@ -16,28 +16,34 @@ class RegisterController extends GetxController{
   UsersProviders usersProviders = UsersProviders();
 
   void register(BuildContext context) async{
-    String username = usernameController.text.trim();
+    String nomUser = usernameController.text.trim();
     String name = nameController.text;
-    String email = emailController.text.trim();
+    String correoElectronico = emailController.text.trim();
     String password = passwordController.text.trim();
     String confirmPassword = confirmPasswordController.text.trim();
 
-    if(isValidForm(username, password, name, email, confirmPassword)){
+    if(isValidForm(nomUser, password, name, correoElectronico, confirmPassword)){
 
-      ProgressDialog progressDialog = ProgressDialog(context: context);
-      progressDialog.show(max: 100, msg: 'Refistrando Datos....');
       User user = User(
-        correoElectronico: email,
+        correoElectronico: correoElectronico,
         apellido: name,
-        nomUser: username,
-        password: password
+        nomUser: nomUser,
+        password: password,
+        permiso: 1
       );
-      progressDialog.close();
+      ProgressDialog progressDialog = ProgressDialog(context: context);
+      progressDialog.show(max: 300, msg: 'Refistrando Datos....');
       Response response = await usersProviders.create(user);
-
+      progressDialog.close();
       print('RESPONSE: ${response.body}');
+      // ignore: unrelated_type_equality_checks
+      if(response.status == 200){
+        Get.snackbar("Formulario Valido", 'Usuario Registrado');  
+      } else {
+        Get.snackbar("Formulario No Valido", 'Usuario No Registrado');
+      }
 
-      Get.snackbar("Formulario Valido", 'Usuario Registrado');
+      
     }
 
     
@@ -89,6 +95,5 @@ class RegisterController extends GetxController{
     return true;
   }
 
-
-
+  
 }

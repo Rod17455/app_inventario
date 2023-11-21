@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../menu/menu_empleado.dart';
+import '../../widgets/conexion_internet/warning_widget_getx.dart';
 import '../controller/productos_all_controller.dart';
 
 class ProductosListPage extends StatefulWidget {
@@ -16,17 +17,17 @@ class _ProductosListPageState extends State<ProductosListPage> {
   late String barra;
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Scaffold(
+    return  Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(110),
           child: AppBar(
-             backgroundColor: Color.fromARGB(255, 223, 102, 10),
+             backgroundColor: Color.fromARGB(255, 61, 121, 242),
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.vertical(
                       bottom: Radius.circular(30.0),
                     ),
               ),
-              flexibleSpace: Container(
+             flexibleSpace: Container(
                     margin: const EdgeInsets.only(top: 15),
                     alignment: Alignment.topCenter,
                     child: Wrap(
@@ -34,7 +35,6 @@ class _ProductosListPageState extends State<ProductosListPage> {
                       children: [
                         _textFieldSearch(
                           context,
-                          
                       ),
                   ],
                 ),
@@ -65,13 +65,17 @@ class _ProductosListPageState extends State<ProductosListPage> {
                   return _botonActualizar();
                 }
               } else {
-                return Container();
+                return Center(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: const [CircularProgressIndicator()],
+                    ));
               }
             }
           ),
         ),
-      ),
-    );
+      );
   }
 
     Widget _botonActualizar(){
@@ -103,7 +107,7 @@ class _ProductosListPageState extends State<ProductosListPage> {
         child: Column(
       children: [
         const Text(
-          'Productos',
+          'Productos disponibles',
           style: TextStyle(
               fontSize: 20, 
               color: Colors.white, 
@@ -134,220 +138,174 @@ class _ProductosListPageState extends State<ProductosListPage> {
                 contentPadding: const EdgeInsets.all(15)),
           ),
         ),
-        //const WarningWidgetGetX(),
+        const WarningWidgetGetX(),
       ],
     ));
   }
 
-  Widget _cardProductos(BuildContext context, Product product){
-    Size screenSize = MediaQuery.of(context).size;
-    return GestureDetector(
-      child: Padding(
-        padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 20.0),
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20.0)),
-                        color: const Color.fromARGB(255, 217, 216, 216),
-                        border: Border.all(color: Colors.white10)),
-                child: Column(
-                   mainAxisAlignment: MainAxisAlignment.start,
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                   children: <Widget>[
-                      Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: Center(
-                            child: Container(
-                              height: 45.0,
-                              width: double.infinity,
-                              decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20),
-                                  ),
-                                  gradient: LinearGradient(
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                      tileMode: TileMode.repeated,
-                                      colors: [
-                                        Color.fromARGB(255, 223, 102, 10),
-                                        Color.fromARGB(255, 117, 179, 9),
-                                      ])),
-                              child: Center(
-                                child: Text(
-                                   '${product.id}',
-                                  style: const TextStyle(
-                                      fontSize: 15.0,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding:  const EdgeInsets.only(top: 5.0, left: 15.0),
-                          child: Column(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(left: 5.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                   children: <Widget>[
-                                      Column(
-                                        children: <Widget>[
-                                           Text(
-                                            'Nombre del Producto:',
-                                            style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.bold
-                                                // color: Colors.white24
-                                                ),
-                                          ),
-                                          SizedBox(height: 5),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                      //height: 45,
-                                      width: screenSize.width / 1.25,
-                                      child: Text(
-                                        '${product.nomProd}',
-                                      ),
-                                    ),
-                                    Column(
-                                        children: <Widget>[
-                                           Text(
-                                            'Descripción:',
-                                            style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.bold
-                                                // color: Colors.white24
-                                                ),
-                                          ),
-                                          SizedBox(height: 5),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                      //height: 45,
-                                      width: screenSize.width / 1.25,
-                                      child: Text(
-                                        '${product.descProd}',
-                                      ),
-                                    ),
-                                    Column(
-                                        children: <Widget>[
-                                           Text(
-                                            'Categoría:',
-                                            style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.bold
-                                                // color: Colors.white24
-                                                ),
-                                          ),
-                                          SizedBox(height: 5),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                      //height: 45,
-                                      width: screenSize.width / 1.25,
-                                      child: Text(
-                                        '${product.categoria}',
-                                      ),
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        const Text('Precio:',
-                                            style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.bold)),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          '${product.precio}',
-                                          style: const TextStyle(fontSize: 16.0),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        const Text('Stock:',
-                                            style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.bold)),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          '${product.stock}',
-                                          style: const TextStyle(fontSize: 16.0),
-                                        ),
-                                      ],
-                                    ),
-                                    Column(
-                                        children: <Widget>[
-                                           Text(
-                                            'Estatus:',
-                                            style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.bold
-                                                // color: Colors.white24
-                                                ),
-                                          ),
-                                          SizedBox(height: 5),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                      //height: 45,
-                                      width: screenSize.width / 1.25,
-                                      child: Text(
-                                        '${product.estatus}',
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    )
-    
-                                   ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Center(
-                          child: ButtonTheme(
-                              height: 45,
-                              minWidth: screenSize.width / 2,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12)),
-                              child: MaterialButton(
-                                onPressed: () => widget.con.goToDetalle(),
-                                child: const Text(
-                                  'Ver detalle',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                color: Color.fromARGB(255, 216, 141, 10),
-                              )),
-                        ),
-                        const SizedBox(
-                          height: 25,
-                        ),
-                   ],
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
+  Widget _line() {
+    return Container(
+      height: 1.0,
+      width: double.infinity,
+      color: Colors.black,
     );
   }
+
+  Widget _cardProductos(BuildContext context, Product product) {
+    return GestureDetector(
+      child: Padding(
+          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+          child: Stack(
+            children: <Widget>[
+              Padding(
+                padding:
+                    const EdgeInsets.only(left: 10.0, right: 10.0, top: 20.0),
+                child: Container(
+                  //height: 300,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      color: Color.fromARGB(255, 217, 216, 216),
+                      border: Border.all(color: Colors.white10)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 20.0, top: 10.0, bottom: 10.0),
+                        child: Text(
+                          "${product.nomProd}",
+                          style: const TextStyle(
+                              fontFamily: "Sans",
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13.0),
+                        ),
+                      ),
+                      _line(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20.0, left: 15.0),
+                        child: Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      const Text('Precio:',
+                                          style: TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.bold)),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        '\$${product.precio}',
+                                        style: const TextStyle(fontSize: 16.0),
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Row(
+                                    children: <Widget>[
+                                      const Text(
+                                        'Categoría:',
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.bold
+                                            // color: Colors.white24
+                                            ),
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text("${product.categoria}",
+                                        style: const TextStyle(
+                                          fontSize: 16.0,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Row(
+                                    children: <Widget>[
+                                      const Text(
+                                        'Descripción:',
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.bold
+                                            // color: Colors.white24
+                                            ),
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text("${product.descProd}",
+                                        style: const TextStyle(
+                                          fontSize: 14.0,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Row(
+                                    children: <Widget>[
+                                      const SizedBox(
+                                        width: 160,
+                                      ),
+                                      TextButton(
+                                          // Esta función se moverá a otra pantalla donde pasara como objeto "orden"
+                                          onPressed: () => widget.con.detalle(product.id ?? 0, context),
+                                          child: const Text('Ver detalle',
+                                              style: TextStyle(
+                                                fontSize: 15.0,
+                                              )))
+                                    ],
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 220,
+                top: 10,
+                child: Container(
+                  height: 40.0,
+                  width: 100.0,
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                      gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          tileMode: TileMode.repeated,
+                          colors: [
+                            Color.fromARGB(255, 2, 145, 2),
+                            Color.fromARGB(255, 2, 145, 2),
+                          ])),
+                  child: Center(
+                    child: Text(
+                      "${product.id}",
+                      style: const TextStyle(
+                          fontSize: 20.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          )),
+    );
+  }
+
+  
 }

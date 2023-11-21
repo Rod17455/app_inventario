@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:sn_progress_dialog/progress_dialog.dart';
 
 import '../../usuario/models/response_api.dart';
 import '../../usuario/models/user.dart';
@@ -26,10 +27,13 @@ class ProductosListController extends GetxController{
     Get.toNamed('/productsDetail');
   }
 
-  void detalle(int id) async {
+  void detalle(int id, BuildContext context) async {
     //ALAMACENA LA RESPUESTA QUE DA EL SERVIDOR, ESPECIFICANDO LA RUTA DE ESTE
+    ProgressDialog progressDialog = ProgressDialog(context: context);
+    progressDialog.show(max: 300, msg: 'Validando los datos....');
     ResponseApi responseApi = await productaProvider.detalle(id);
-    print('RESPONSE API: ${responseApi.toJson()}');
+    progressDialog.close();
+    //print('RESPONSE API: ${responseApi.toJson()}');
 
     //COMPARA SI CONTIENE DATOS
     if (responseApi.success == true) {

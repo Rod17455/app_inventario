@@ -95,7 +95,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       }
                     });
                   },
-                  color: const Color.fromARGB(255, 244, 110, 0),
+                  color: Color.fromARGB(255, 61, 121, 242),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),

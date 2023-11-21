@@ -9,7 +9,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 244, 110, 0),
+      backgroundColor: const Color.fromARGB(255, 61, 121, 242),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -21,24 +21,24 @@ class WelcomeScreen extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             const Text(
-              "Welcome to the ",
-              style: TextStyle(
-                fontSize: 28.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-            Text(
-              "${con.user.nomUser}",
+              "Bienvenido",
               style: TextStyle(
                 fontSize: 30.0,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
             ),
-            SizedBox(height: 40.0),
             Text(
-              "Your rols:",
+              "${con.user.nomUser}",
+              style: const TextStyle(
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(height: 40.0),
+            const Text(
+              "Tus roles:",
               style: TextStyle(
                 fontSize: 30.0,
                 fontWeight: FontWeight.bold,
@@ -54,36 +54,29 @@ class WelcomeScreen extends StatelessWidget {
                   title: TextButton(
                     child: Text(
                       role,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
                     ),
-                    onPressed: () => con.goToPage(role),
+                    onPressed: () => con.goToPage(role, context),
                   ),
                 );
               }).toList(),
+            ),
+            TextButton(
+              onPressed:()=>con.signOut(), 
+              child: const Text(
+                      'Salir de la sesión',
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
             )
-            /*ElevatedButton(
-              onPressed: () {
-                // Navigate to the ClothingCatalogScreen
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.white,
-                padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 16.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-              ),
-              child: Text(
-                "Iniciemos",
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Color.fromARGB(255, 244, 110, 0),
-                ),
-              ),
-            ),*/
+            
           ],
         ),
       ),

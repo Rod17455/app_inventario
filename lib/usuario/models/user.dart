@@ -15,6 +15,8 @@ class User {
     String? password;
     String? sesionToken;
     List<String>? roles = [];
+    int? permiso;
+    int? id;
 
     User({
         this.nomUser,
@@ -22,24 +24,30 @@ class User {
         this.correoElectronico,
         this.password,
         this.sesionToken,
-        this.roles
+        this.roles,
+        this.permiso,
+        this.id
     });
 
     factory User.fromJson(Map<String, dynamic> json) => User(
-        nomUser: json["userName"],
+        nomUser: json["nomUser"],
         apellido: json["apellido"],
-        correoElectronico: json["email"],
+        correoElectronico: json["correoElectronico"],
         password: json["password"],
         sesionToken: json["token"],
-        roles: json["roles"] == null ? [] : List<String>.from(json["roles"])
+        permiso: json["permiso"],
+        roles: json["roles"] == null ? [] : List<String>.from(json["roles"]),
+        id: json["id"]
     );
 
     Map<String, dynamic> toJson() => {
-        "userName": nomUser,
+        "nomUser": nomUser,
         "apellido": apellido,
-        "email": correoElectronico,
+        "correoElectronico": correoElectronico,
         "password": password,
         "token": sesionToken,
-        "roles": roles
+        "permiso":permiso,
+        "roles": roles,
+        "id": id
     };
 }
