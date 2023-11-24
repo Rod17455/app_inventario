@@ -43,6 +43,8 @@ dependencies:
   connectivity_plus: ^2.3.6 # MANEJA LA CONECTIVIDAD DE LA RED
   rxdart: ^0.27.5 # MEJORA EL PROCESO DE ACTUALIZACIONES
   hexcolor: ^3.0.1
+  instabug_flutter: ^12.1.0
+  permission_handler: ^10.2.0
   
 
 dev_dependencies:

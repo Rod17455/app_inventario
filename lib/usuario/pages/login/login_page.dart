@@ -1,6 +1,7 @@
 import 'package:app_inventario/usuario/controller/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/cupertino.dart';
 
 class LoginPage extends StatelessWidget {
 
@@ -76,7 +77,7 @@ class LoginPage extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              onPressed: () => con.login(context),
+              onPressed: () => _showDialog(context),
               child: const Text(
                 "Login",
                 style: TextStyle(
@@ -90,5 +91,44 @@ class LoginPage extends StatelessWidget {
       ),
     )
     );
+  }
+
+  void _showDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Column(
+              children: const <Widget>[
+                Text(
+                  "Aviso",
+                  style: TextStyle(fontSize: 20),
+                ),
+              ],
+            ),
+            content: const Text(
+                "¿Permites recibir notificaciones a este dispositivo?",
+                style: TextStyle(fontSize: 18)),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: const Text(
+                  "SI",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onPressed: ()=>con.login(context)
+              ),
+              CupertinoDialogAction(
+                child: const Text(
+                  "NO",
+                  style:
+                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 }

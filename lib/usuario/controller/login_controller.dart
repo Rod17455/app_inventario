@@ -2,6 +2,7 @@ import 'package:app_inventario/usuario/models/response_api.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 import '../providers/user_providers.dart';
 
@@ -17,11 +18,13 @@ class LoginController extends GetxController{
   }
 
   void login(BuildContext context) async{
+
     String username = usernameController.text.trim();
     String password = passwordController.text.trim();
 
     print('Username ${username}');
     print('Password ${password}');
+
 
     if(isValidForm(username, password)){
 
@@ -46,6 +49,7 @@ class LoginController extends GetxController{
 
     
   }
+
 
   void goToHomePage(){
     Get.toNamed('/home');
