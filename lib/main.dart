@@ -23,6 +23,9 @@ import 'gerente/pages/detalle_productos_x_autorizar.dart';
 import 'gerente/pages/productos_autorizados_page.dart';
 import 'gerente/pages/productos_x_autorizar_page.dart';
 import 'usuario/pages/home/welcome_screen.dart';
+import 'package:instabug_flutter/instabug_flutter.dart';
+
+
 
 User userSession = User.fromJson(GetStorage().read('user') ?? {});
 final internetChecker = CheckInternetConnection();
@@ -31,6 +34,7 @@ void main() async{
   await GetStorage.init();
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -45,6 +49,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    //Raygun.init(apiKey:'XapWZdpPglQiz7xoRxdwfw');
   }
   
 

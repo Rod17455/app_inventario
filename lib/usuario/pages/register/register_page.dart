@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/link.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class RegisterPage extends StatefulWidget {
   RegisterController con = Get.put(RegisterController());
@@ -14,9 +15,12 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  late Future<PermissionStatus> _permissionStatus;
   bool isChecked1 = false;
   bool isChecked2 = false;
   final Uri _url = Uri.parse('https://drive.google.com/file/d/1H5Vrm8MeUh_Hl9DRw0VjBJKgTJdQtQ9o/view?usp=drive_link');
+
+
 
   void printMessage(){
     print("Accepted the agreement");
