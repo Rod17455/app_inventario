@@ -232,7 +232,34 @@ class _ProductoDetallePageState extends State<ProductoDetallePage> {
         ],
       );
     } else {
-      return Container();
+      return Column(
+        children: <Widget>[
+        const SizedBox(height: 10,),
+        ButtonTheme(
+            height: 40,
+            minWidth: 250,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            child: MaterialButton(
+              onPressed: () {
+                widget.con.sendSms();
+              },
+              child: const Text(
+                'SMS proveedor',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              color: const Color.fromARGB(255, 39, 107, 210),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          
+        ],
+      );
     }
   }
 }

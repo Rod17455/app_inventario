@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../usuario/models/user.dart';
 import '../models/detailProduct.dart';
@@ -49,6 +50,12 @@ class ProductoDetalleController extends GetxController{
 
     }
 
+  }
+
+  void sendSms(){
+    String smsl = "sms:9292";
+    // ignore: deprecated_member_use
+    launch(smsl);
   }
 
    void goToInicio(){
